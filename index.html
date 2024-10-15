@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion de Coordonnées</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="converter.js" defer></script>
+</head>
+<body>
+    <h1>Convertisseur de Coordonnées</h1>
+    
+    <h2>Choisissez le type de conversion :</h2>
+    <label>
+        <input type="radio" name="conversion" value="geodeticToCartesian" checked>
+        Coordonnées géographiques vers les coordonnées cartésiennes
+    </label>
+    <br>
+    <label>
+        <input type="radio" name="conversion" value="cartesianToGeodeticDirect">
+        Coordonnées cartésiennes vers les coordonnées géographiques (Méthode Directe)
+    </label>
+    <br>
+    <label>
+        <input type="radio" name="conversion" value="cartesianToGeodeticIterative">
+        Coordonnées cartésiennes vers les coordonnées géographiques (Méthode itérative)
+    </label>
+    
+    <div id="inputs">
+        <h3>Entrer les valeurs :</h3>
+        
+        <div id="geodeticInputs">
+            <label for="latitude">Latitude (en degrés) :</label>
+            <input type="number" id="latitude" step="any">
+            <br>
+            <label for="longitude">Longitude (en degrés) :</label>
+            <input type="number" id="longitude" step="any">
+            <br>
+            <label for="altitude">Hauteur (en mètres) :</label>
+            <input type="number" id="height" step="any">
+        </div>
+        
+        <div id="cartesianInputs" style="display: none;">
+            <label for="X">X (en mètres) :</label>
+            <input type="number" id="X" step="any">
+            <br>
+            <label for="Y">Y (en mètres) :</label>
+            <input type="number" id="Y" step="any">
+            <br>
+            <label for="Z">Z (en mètres) :</label>
+            <input type="number" id="Z" step="any">
+        </div>
+    </div>
+    
+    <button onclick="convert()">Convertir</button>
+    
+    <h2>Résultat :</h2>
+    <div id="result"></div>
+
+    <script>
+        // Update input fields based on conversion type
+        const conversionInputs = document.querySelectorAll('input[name="conversion"]');
+        conversionInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const geodeticInputs = document.getElementById('geodeticInputs');
+                const cartesianInputs = document.getElementById('cartesianInputs');
+                
+                if (this.value === "geodeticToCartesian") {
+                    geodeticInputs.style.display = 'block';
+                    cartesianInputs.style.display = 'none';
+                } else {
+                    geodeticInputs.style.display = 'none';
+                    cartesianInputs.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
